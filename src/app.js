@@ -1,5 +1,6 @@
 import express from 'express';
 import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js'
 import './db.js'
 
 //environment variable
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.json())
 
 app.use("/products", productRoutes);
+app.use("/cart", cartRoutes)
 
 
 const port = process.env.PORT
