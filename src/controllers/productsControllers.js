@@ -1,4 +1,6 @@
-import * as productServices from '../services/productsServices.js';
+//import * as productServices from '../services/productsServices.js';
+
+import { getAllProducts } from "../services/productsServices.js";
 
 export const createProduct = async (req,res) => {
     try {
@@ -11,11 +13,14 @@ export const createProduct = async (req,res) => {
 
 }
 
-export const getAllProducts = async (req, res) => {
+export const AllProducts = async (req, res) => {
     try {
-      const products = await productServices.getAllProducts();
-      res.status(200).json(products);
+      const {limit , page, sort , query} = req.query
+      const products = await getAllProducts(limit , page, sort , query);
+      res.status(200).json(products)
+      
     } catch (error) {
+      console.log(error);
       res.status(400).json(error.message);
     }
   };

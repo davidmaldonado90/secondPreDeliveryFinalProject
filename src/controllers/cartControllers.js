@@ -1,12 +1,15 @@
-import * as cartServices from '../services/cartServices.js';
+//import * as cartServices from '../services/cartServices.js';
+import {createCart} from "../services/cartServices.js"
 
-export const createCart = async (req,res) => {
+export const createCartNew = async (req,res) => {
     try {
-        const {body} = req;
-        const response = await cartServices.createCart(body)
+        const response = await createCart()
         res.status(200).json(response)
     } catch (error) {
         res.status(400).json(error.message)
     }
 
 }
+
+
+

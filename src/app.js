@@ -12,13 +12,13 @@ const app = express();
 //midleware
 app.use(express.json())
 
-app.use("/products", productRoutes);
-app.use("/cart", cartRoutes)
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes)
 
 
 const port = process.env.PORT
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log("server run");
 })
 
