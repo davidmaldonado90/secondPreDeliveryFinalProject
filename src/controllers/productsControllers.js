@@ -18,13 +18,13 @@ class ProductController {
 
       allProducts = async (req, res) => {
         try {
-          const {limit , page, sort , query} = req.query
+          const {limit , page, sort , query} = req.query  || {};
           const products = await service.getAllProducts(limit , page, sort , query);
           res.status(200).json(products)
           
         } catch (error) {
           console.log(error);
-          res.status(400).json(error.message);
+          throw error
         }
       };
     

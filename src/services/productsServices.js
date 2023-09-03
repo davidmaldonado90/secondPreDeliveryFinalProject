@@ -30,7 +30,7 @@ class ProductService{
             const nextPage = page < totalPages ? parseInt(page) + 1 : null;
             const prevPage = page > 1 ? parseInt(page) -1 : null;
       
-            const response = {
+            const result = {
                 status: "success",
                 payload: products,
                 totalPages: totalPages,
@@ -42,7 +42,7 @@ class ProductService{
                 prevLink: prevPage !== null ? `/products?page=${prevPage}&limit=${limit}` : null,
                 nextLink: nextPage !== null ? `/products?page=${nextPage}&limit=${limit}` : null
               }
-            return response;
+            return result;
       
           } catch (error) {
               throw new Error(error)
