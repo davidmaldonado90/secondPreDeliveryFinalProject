@@ -13,9 +13,7 @@ class ProductController {
           } catch (error) {
               res.status(400).json(error.message)
           }
-      
       }
-
       allProducts = async (req, res) => {
         try {
           const {limit , page, sort , query} = req.query  || {};
@@ -24,7 +22,7 @@ class ProductController {
           
         } catch (error) {
           console.log(error);
-          throw error
+          throw new Error(error)
         }
       };
     

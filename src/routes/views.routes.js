@@ -10,10 +10,11 @@ views.get("/", async (req , res)=>{
         
         const { limit, page, sort, query } = req.query || {};
         const product = await products.allProducts(limit, page, sort, query);
-        res.render("index", {product: product })
+        console.log(product);
+        //res.render("index", {product: product })
         
     } catch (error) {
-        console.log(error);
+        throw new Error(error)
     }
 })
 

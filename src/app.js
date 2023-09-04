@@ -1,7 +1,7 @@
 import express from 'express';
-import productRoutes from './routes/productRoutes.js';
-import cartRoutes from './routes/cartRoutes.js'
-import views from './routes/views.js'
+import productRoutes from './routes/productRoutes.routes.js';
+import cartRoutes from './routes/cartRoutes.routes.js'
+import views from './routes/views.routes.js'
 import './db.js'
 import path from 'path';
 import handlebars from 'express-handlebars';
@@ -17,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
+
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +27,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes)
 app.use("/", views)
-app.use("/api/products", views)
 
 const port = process.env.PORT
 
