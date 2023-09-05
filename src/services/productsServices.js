@@ -27,6 +27,7 @@ class ProductService{
               .sort(sortOptions)
               .skip(skip)
               .limit(parseInt(limit))
+              .lean();
             const nextPage = page < totalPages ? parseInt(page) + 1 : null;
             const prevPage = page > 1 ? parseInt(page) -1 : null;
       

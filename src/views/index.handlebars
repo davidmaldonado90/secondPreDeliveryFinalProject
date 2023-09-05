@@ -1,15 +1,15 @@
 <main>
     {{#each product}}
         <div class="product">
-            <h1>Nombre del producto: {{product.title}}</h1>
-            <p>Descripción: {{product.description}}</p>
-            <p>Categoría: {{product.category}}</p>
-            <p>Code: {{product.code}}</p>
-            <p>Precio: {{product.price}}</p>
-            <p>Estado: {{product.status}}</p>
-            <p>Stock: {{product.stock}}</p>
-            <p>Categoría: {{product.category}}</p>
-            <p>Imagen: {{product.thumbnails}}</p>
+            <h1>Nombre del producto: {{this.title}}</h1>
+            <p>Descripción: {{this.description}}</p>
+            <p>Categoría: {{this.category}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Precio: {{this.price}}</p>
+            <p>Estado: {{this.status}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Categoría: {{this.category}}</p>
+            <p>Imagen: {{this.thumbnails}}</p>
         </div>
     {{/each}}
 </main>

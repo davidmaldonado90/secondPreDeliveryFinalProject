@@ -6,12 +6,13 @@ const products = new ProductController();
 
 
 views.get("/", async (req , res)=>{
-    try {
+    try { 
+        const product = await products.allProducts(req);
+       
+        console.log(product.payload);
+        res.render("index", { product: product.payload })
         
-        const { limit, page, sort, query } = req.query || {};
-        const product = await products.allProducts(limit, page, sort, query);
-        console.log(product);
-        //res.render("index", {product: product })
+        
         
     } catch (error) {
         throw new Error(error)

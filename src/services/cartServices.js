@@ -1,6 +1,7 @@
 import {cartModel} from "../models/cartModels.js";
 import { productModel } from "../models/productsModels.js";
 
+
 class CartService{
     constructor(){}    
 
@@ -13,29 +14,43 @@ class CartService{
         }
     }
 
-    addToCart = async (req, res) => {
-        const { id, quantity } = req.body
+    addToCart = async (cid , pid) => {
 
         try {
-            const productId = await productModel.findById(id);
 
-            let cart = await cartModel.findOne();
-            if(!cart){
-                cart = new cartModel
+            const productFind = await productModel.findById({_id: pid});
+            console.log(productFind);
+            let cart = await cartModel.findOne({_id: cid});
+            console.log(cart);
+
+            
+            if(!productFind){
+                return "producto no encontrado";
             }
 
-            const existItem = cartModel.items.find(item => item.productModel.equals(productId))
+            if(!cart){
+                return "carrito no encontrado"
+            }
+
+            const newProduct = {product: pid, quantity}
+
+            // if(cart){
+            //     cart.products.push(newProduct)
+            // }
+
+            const existItem = cart.products.find(item => item._id == pid)
 
             if (existItem){
                 existItem.quantity += quantity;
             } else {
-                cart.items.push ({product: id, quantity})
+                cart.products.push (newProduct)
             }
             await cart.save()
 
-            res.status(500).json({message: "error interno"})
+            return cart
         } catch (error) {
-            
+            console.log(error);
+            return "no se pudo agregar al carrito"
         }
     }
 

@@ -18,14 +18,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.engine('handlebars', handlebars.engine);
+app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 
 
 app.use("/api/products", productRoutes);
-app.use("/api/cart", cartRoutes)
+app.use("/api/carts", cartRoutes)
 app.use("/", views)
 
 const port = process.env.PORT

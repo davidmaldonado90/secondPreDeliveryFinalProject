@@ -1,13 +1,13 @@
 import CartService from "../services/cartServices.js"
 
-const CartS = new CartService();
+const carts = new CartService();
 
 class CartController {
   constructor() {}
 
   createCartNew = async (req,res) => {
     try {
-        const response = await CartS.createCart();
+        const response = await carts.createCart();
         res.status(200).json(response)
     } catch (error) {
         res.status(400).json(error.message)
@@ -16,21 +16,20 @@ class CartController {
 }
 
   addToCart = async (req, res) => {
-    const { productId, quantity } = req.body;
+    const { pid , cid } = req.params;
 
     try {
-      const result = await cartService.addToCart(productId, quantity);
-      if (result.success) {
-        res.status(200).json({ message: result.message });
+      const result = await CartService.addToCart(pid, cid);
+      console.log(result);
+      if (result) {
+        res.status(200).json(result)
       } else {
-        res.status(400).json({ message: result.message });
+        res.status(500).json({ message: "no se pudo agregar" });
       }
     } catch (error) {
       res.status(500).json({ message: 'Error interno del servidor' });
     }
   }
-
-
 }
 
 export default CartController
