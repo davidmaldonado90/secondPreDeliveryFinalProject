@@ -8,11 +8,7 @@ const products = new ProductController();
 views.get("/", async (req , res)=>{
     try { 
         const product = await products.allProducts(req);
-       
-        console.log(product.payload);
         res.render("index", { product: product.payload })
-        
-        
         
     } catch (error) {
         throw new Error(error)

@@ -7,9 +7,8 @@ const cart = new CartController();
 cartRouter.post("/", cart.createCartNew);
 
 
-cartRouter.put('/:cid/products/:pid' , cart.addToCart)
+cartRouter.put('/:cid/products/:pid', cart.addToCart)
 
 
 
 export default cartRouter;
-

@@ -16,10 +16,10 @@ class CartController {
 }
 
   addToCart = async (req, res) => {
-    const { pid , cid } = req.params;
+    const { cid, pid } = req.params;
 
     try {
-      const result = await CartService.addToCart(pid, cid);
+      const result = await carts.addToCart(cid, pid);
       console.log(result);
       if (result) {
         res.status(200).json(result)

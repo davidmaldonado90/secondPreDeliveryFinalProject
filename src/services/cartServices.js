@@ -18,10 +18,8 @@ class CartService{
 
         try {
 
-            const productFind = await productModel.findById({_id: pid});
-            console.log(productFind);
+            const productFind = await productModel.findById(pid);
             let cart = await cartModel.findOne({_id: cid});
-            console.log(cart);
 
             
             if(!productFind){
@@ -32,7 +30,7 @@ class CartService{
                 return "carrito no encontrado"
             }
 
-            const newProduct = {product: pid, quantity}
+            const newProduct = {product: pid}
 
             // if(cart){
             //     cart.products.push(newProduct)
@@ -41,9 +39,9 @@ class CartService{
             const existItem = cart.products.find(item => item._id == pid)
 
             if (existItem){
-                existItem.quantity += quantity;
+                existItem.quantity++;
             } else {
-                cart.products.push (newProduct)
+                cart.products.push(newProduct)
             }
             await cart.save()
 
