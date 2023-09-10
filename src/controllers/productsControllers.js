@@ -14,17 +14,41 @@ class ProductController {
               res.status(400).json(error.message)
           }
       }
-      allProducts = async (req) => {
+      allProducts = async (req, res) => {
         try {
-          const {limit , page, sort , query} = req.query  || {};
-          const products = await service.getAllProducts(limit , page, sort , query);
-          return products
-          
+          const page = parseInt(req.query.page) || 1;
+          const limit = 10;
+          const query = {}; // Puedes agregar filtros de consulta aquí si es necesario
+          const sort = req.query.sort;
+    
+          const productsData = await service.getAllProducts(limit, query, sort, page);
+
+    
+          // Formatea los datos para tu requisito específico
+          const result = {
+            status: "success",
+            payload: productsData.docs,
+            totalPages: productsData.totalPages,
+            prevPage: productsData.prevPage,
+            nextPage: productsData.nextPage,
+            page: page,
+            hasPrevPage: productsData.hasPrevPage,
+            hasNextPage: productsData.hasNextPage,
+            prevLink: productsData.hasPrevPage
+              ? `/?page=${productsData.prevPage}`
+              : '',
+            nextLink: productsData.hasNextPage
+              ? `/?page=${productsData.nextPage}`
+              : '',
+          };
+    
+          // Devuelve los datos en lugar de renderizar la vista
+          res.json(result);
         } catch (error) {
-          console.log(error);
-          throw new Error(error)
+          console.error(error);
+          res.status(500).json({ error: 'Error interno del servidor' });
         }
-      };
+      }
     
       getProductById = async (req, res) => {
         try {

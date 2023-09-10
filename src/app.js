@@ -13,7 +13,7 @@ dotenv.config()
 
 const app = express();
 
-//midleware0
+//middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
@@ -25,8 +25,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 app.use("/api/products", productRoutes);
-app.use("/api/carts", cartRoutes)
-app.use("/", views)
+app.use("/api/carts", cartRoutes);
+app.use("/", views);
+
+
 
 const port = process.env.PORT
 

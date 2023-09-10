@@ -1,3 +1,30 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+main{
+    width: 100%;
+    height: auto;
+    background-color: silver;
+}
+
 .product{
-    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;   
+    margin: 10px; 
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #8dce85;
+    width: 300px;
+    height: 300px;
+    margin: 15px
 }
