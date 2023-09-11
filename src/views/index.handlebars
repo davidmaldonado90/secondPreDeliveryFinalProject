@@ -1,7 +1,7 @@
 <main>
     <div class="product">
     {{#each result.docs}}
-    <div class="card">
+        <div class="card">
             <h1>{{this.title}}</h1>
             <p>Descripción: {{this.description}}</p>
             <p>Categoría: {{this.category}}</p>
@@ -11,7 +11,8 @@
             <p>Stock: {{this.stock}}</p>
             <p>Categoría: {{this.category}}</p>
             <p>Imagen: {{this.thumbnails}}</p>
-            </div>
+            <button class="btn-add" data-product-id="{{this._id}}">Add to Cart</button>
+        </div>
             {{/each}}
     </div>
     <div>

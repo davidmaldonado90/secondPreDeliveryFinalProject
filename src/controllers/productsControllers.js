@@ -35,10 +35,10 @@ class ProductController {
             hasPrevPage: productsData.hasPrevPage,
             hasNextPage: productsData.hasNextPage,
             prevLink: productsData.hasPrevPage
-              ? `/?page=${productsData.prevPage}`
+              ? `/products?page=${productsData.prevPage}`
               : '',
             nextLink: productsData.hasNextPage
-              ? `/?page=${productsData.nextPage}`
+              ? `/products?page=${productsData.nextPage}`
               : '',
           };
     

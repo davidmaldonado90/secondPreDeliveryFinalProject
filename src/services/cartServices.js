@@ -9,7 +9,7 @@ class CartService{
             const create = await cartModel.create({});
             return create;
         } catch (error) {
-            
+            throw new Error(error)
         }
     }
     
@@ -26,19 +26,15 @@ class CartService{
             return "Producto no encontrado";
           }
           if (!cart) {
-            // Si el carrito no existe, crea uno nuevo y agrega el producto
             cart = await cartModel.create({ products: [{ product: pid, quantity: 1 }] });
             return cart;
           }
       
-          // Verifica si el producto ya existe en el carrito
           const existingProduct = cart.products.find((item) =>item.product.toString() === pid);
       
           if (existingProduct) {
-            // Si el producto existe, aumenta la cantidad en 1
             existingProduct.quantity ++;
           } else {
-            // Si el producto no existe, agrégalo al carrito con cantidad 1
             cart.products.push({ product: pid, quantity: 1 });
           }
       
@@ -50,8 +46,6 @@ class CartService{
         }
       }
       
-      
-
       deleteProduct = async(cid, pid) => {
 
         try {
@@ -106,9 +100,6 @@ class CartService{
           throw new Error("No se pudo obtener el carrito con productos");
         }
       }
-      
-      
-
 }
 
 export default CartService
