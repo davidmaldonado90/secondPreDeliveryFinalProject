@@ -4,6 +4,16 @@ import { productModel } from "../models/productsModels.js";
 const views = express.Router();
 
 
+views.get("/session", (req,res) =>{
+  if (req.session.counter){
+    req.session.counter++;
+    res.send(`se visito este sitio ${req.session.counter} veces.`)
+  } else {
+    req.session.counter =1;
+    res.send ("Bienvenido");
+  }
+});
+
 views.get('/products', async (req, res) => {
     try {
       let page = parseInt(req.query.page) || 1;
@@ -18,6 +28,8 @@ views.get('/products', async (req, res) => {
       res.status(500).send('Error interno del servidor');
     }
   });
+
+
 
 
 
