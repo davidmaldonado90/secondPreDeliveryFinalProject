@@ -11,6 +11,8 @@ import __dirname from '../src/utils.js'
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 //environment variable
 import dotenv from 'dotenv';
@@ -38,7 +40,11 @@ app.use(session({
     secret: "secret",
     resave: true,
     saveUninitialized: true
-}))
+}));
+
+initializePassport();
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);

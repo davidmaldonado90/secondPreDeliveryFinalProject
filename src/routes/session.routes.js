@@ -1,52 +1,26 @@
 import  express  from "express";
-import userModel from "../models/usersModel.js";
+import passport from "passport";
 
 const sessionRouter = express.Router();
 
-sessionRouter.post("/register", async (req, res)=> {
-    try {
-        
-    const {firstName, lastName, email, age, password } = req.body;
-    console.log("usuario registrado");
-    
-    const exist = await userModel.findOne({email});
-    if(exist){
-        return res.status(400).send({status: 'error', message: 'el usuario ya existe'})
-    }
+sessionRouter.post("/register", passport.authenticate('register', { failureRedirect: '/api/sessions/fail-register' }), async (req, res) => {
+    console.log("Registrando nuevo usuario.");
+    res.status(201).send({ status: "success", message: "Usuario creado con exito." })
 
-    const user = {
-        firstName,
-        lastName,
-        email,
-        age,
-        password
-    }
+})
 
-    const result = await userModel.create(user);
-    res.send({status: 'success', message: 'usuario creado con exito ID:'+ result.id})
+sessionRouter.post("/login", passport.authenticate("login", { message: '' }), async (req, res) => {
+    const user = req.user;
 
-} catch (error) {
-        throw new Error(error)
-}
-});
-
-
-sessionRouter.post("/login", async (req, res)=> {
-
-    const {email, password} = req.body;
-    const user = await userModel.findOne({email, password});
-
-    if(!user) return res.status(401).send({status: error, message: 'el usuario no existe'});
-
+    if (!user) return res.status(401).send({ status: "error", error: "credenciales incorrectas" });
     req.session.user = {
         name: `${user.firstName} ${user.lastName}`,
         email: user.email,
         age: user.age
     }
-
-    res.send({status: 'success', payload: req.session.user, messsage: 'logueado con exito'}); 
-
+    res.send({ status: "success", payload: req.session.user, message: "¡Primer logueo realizado! " });
 });
+
 
 
 export default sessionRouter;

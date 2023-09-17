@@ -13,7 +13,9 @@ form.addEventListener("submit", e => {
         }
     }).then(result => {
         if(result.status == 200){
-            window.location.replace("/products")
+            window.location.replace("/products");
+        } else if(result.status === 401){
+            alert ("login invalido, revisar credenciales")
         }
     })
 
