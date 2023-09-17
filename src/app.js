@@ -4,6 +4,7 @@ import cartRoutes from './routes/cartRoutes.routes.js'
 import views from './routes/views.routes.js';
 import userRoute from './routes/users.routes.js';
 import sessionRouter from './routes/session.routes.js';
+import gitRoute from './routes/github.login.routes.js';
 import './db.js';
 import path from 'path';
 import handlebars from 'express-handlebars';
@@ -51,7 +52,7 @@ app.use("/api/carts", cartRoutes);
 app.use("/api/session", sessionRouter);
 app.use("/users", userRoute);
 app.use("/", views);
-
+app.use("/github", gitRoute)
 
 
 const port = process.env.PORT

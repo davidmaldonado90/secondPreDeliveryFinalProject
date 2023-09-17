@@ -2,10 +2,54 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import userModel from "../models/usersModel.js";
 import { hashCreate, isValidPassword } from '../utils.js';
+import GitHubStrategy from "passport-github2"
 
 const localSTrategy = passportLocal.Strategy;
 
 const initializePassport = ()=>{
+
+    //github strategy
+
+    passport.use("github", new GitHubStrategy({
+        clientID: "Iv1.489337943993f0c5",
+        clientSecret: "71883a74b1a8c582ac021f742535912d36a16e5d",
+        callbackUrl: "http://localhost:9090/api/session/githubcallback"
+
+
+    }, async(accesToken, refreshToken, profile, done) =>{
+        console.log("user profile");
+        console.log(profile);
+
+        try {
+            const user = await userModel.findOne({email: profile._json.email})
+            console.log("user profile:");
+            console.log(user);
+
+            if(!user){
+                console.warn("user doesnt exist with username"  + profile._json.email);
+
+                let newUser = {
+                    firstName: profile._json.name,
+                    lastName: "",
+                    age: "",
+                    email: profile._json.email,
+                    password: "",
+                    loggedBy: "GitHub"
+                }
+
+                const result = await userModel.create(newUser);
+
+                done(null, result);
+            } else {
+                return done(null, user )
+            }
+        } catch (error) {
+            return done(error)
+        }
+    }))
+
+
+    //local strategy
 
     passport.use('register', new localSTrategy(
 
@@ -61,7 +105,7 @@ const initializePassport = ()=>{
 
 
 
-    //Funciones de Serializacion y Desserializacion
+    
     passport.serializeUser((user, done) => {
         done(null, user._id);
     });
